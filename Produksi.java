@@ -2,12 +2,13 @@ public class Produksi {
     private String JenisHasil;
     private int Jumlah;
 
-    public Produksi(String JenisHasil, int Jumlah){
+    public Produksi(String JenisHasil, int Jumlah) {
         this.JenisHasil = JenisHasil;
         this.Jumlah = Jumlah;
     }
-     // Getter & Setter
-     public String getJenisHasil() {
+
+    // Getter & Setter
+    public String getJenisHasil() {
         return JenisHasil;
     }
 

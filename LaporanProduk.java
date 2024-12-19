@@ -1,12 +1,7 @@
 import java.util.ArrayList;
-import java.util.List;
 
 class LaporanProduksi {
-    private List<Produksi> dataProduksi;
-
-    public LaporanProduksi() {
-        dataProduksi = new ArrayList<>();
-    }
+    private ArrayList<Produksi> dataProduksi = new ArrayList<>();
 
     public void tambahProses(Produksi proses) {
         dataProduksi.add(proses);

@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class StokPakan implements Manajemen {
     Scanner input = new Scanner(System.in);
 
-    private ArrayList<StokPakan> stokPakan = new ArrayList<StokPakan>();
+    protected ArrayList<StokPakan> stokPakan = new ArrayList<StokPakan>();
     private String JenisPakan;
     private int JumlahPakan;
     private Date TanggalKadaluarsa;
@@ -34,8 +34,9 @@ public class StokPakan implements Manajemen {
         JenisPakan = input.nextLine();
         System.out.print("Masukkan jumlah pakan : ");
         JumlahPakan = input.nextInt();
+        input.nextLine();
         System.out.print("Masukkan tanggal kadaluarsa (dd-MM-yyyy) : ");
-        String tanggal = input.next();
+        String tanggal = input.nextLine();
         try {
             TanggalKadaluarsa = new SimpleDateFormat("dd-MM-yyyy").parse(tanggal);
         } catch (ParseException e) {
@@ -46,9 +47,18 @@ public class StokPakan implements Manajemen {
         stokPakan.add(new StokPakan(JenisPakan, JumlahPakan, TanggalKadaluarsa));
     }
 
+    public boolean kurangiPakan(int jumlah) {
+        if (JumlahPakan >= jumlah) {
+            JumlahPakan -= jumlah;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void laporanStokPakan() {
         for (StokPakan stok : stokPakan) {
-            System.out.println("\nJenis Pakan : " + stok.getJenisPakan());
+            System.out.println("Jenis Pakan : " + stok.getJenisPakan());
             System.out.println("Jumlah Pakan : " + stok.getJumlahPakan());
             System.out.println("Tanggal Kadaluarsa : " + stok.getTanggalKadaluasa() + "\n");
         }
