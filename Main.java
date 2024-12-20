@@ -8,6 +8,7 @@ public class Main {
         Sapi sapi = new Sapi("Syapi", "Sapi Perah", "Sehat", 2);
         Ayam ayam = new Ayam("Ayam", "Ayam Kampung", "Sehat", 1);
         Kambing kambing = new Kambing("Kambing", "Kambing Etawa", "Sehat", 3);
+        LaporanProduksi laporanProduksi = new LaporanProduksi();
 
         int pilihan;
 
@@ -55,10 +56,36 @@ public class Main {
             }
 
             if (pilihan == 3) {
-                System.out.println("\n====Ubah Data Hewan====");
-
+                System.out.println("\n==== Ubah Data Hewan ====");
+                System.out.print("Masukkan nama hewan yang ingin diubah: ");
+                String namaHewanUbah = input.nextLine();
+            
+                boolean hewanDitemukan = false;
+                for (Hewan hewan : Hewan.dataHewan) {
+                    if (hewan.getNamaHewan().equalsIgnoreCase(namaHewanUbah)) {
+                        hewanDitemukan = true;
+            
+                        
+                        System.out.print("Masukkan umur baru: ");
+                        int umurBaru = input.nextInt();
+                        input.nextLine(); // Membersihkan buffer
+                        System.out.print("Masukkan status kesehatan baru: ");
+                        String statusKesehatanBaru = input.nextLine();
+            
+                        hewan.setUmurHewan(umurBaru); // Set umur baru
+                        hewan.setStatusKesehatan(statusKesehatanBaru); // Set status kesehatan baru
+            
+                        System.out.println("\nData hewan berhasil diubah:\n" + hewan);
+                        break;
+                    }
+                }
+            
+                if (!hewanDitemukan) {
+                    System.out.println("\nHewan dengan nama \"" + namaHewanUbah + "\" tidak ditemukan.");
+                }
             }
-
+            
+            
             if (pilihan == 4) {
                 System.out.println("\n====Tambah Pekerja====");
                 pekerja.tambahData();
@@ -79,11 +106,55 @@ public class Main {
                 pekerja.laporanTugasHarian();
             }
 
-            if (pilihan == 8) {
-                System.out.println("\n====Laporan Produksi====");
+          
+        
+        
+        if (pilihan == 8) {
+            System.out.println("\n====Laporan Produksi====");
+            System.out.print("Masukkan nama hewan: ");
+            String namaHewan = input.nextLine();
 
+            
+            
+            boolean hewanDitemukan = false;
+            for (Hewan hewan : Hewan.dataHewan) {
+                if (hewan.getNamaHewan().equalsIgnoreCase(namaHewan)) {
+                    hewanDitemukan = true;
+                    break;
+                }
             }
 
+            if (hewanDitemukan) {
+                System.out.print("Masukkan jenis produksi (misal: susu, telur): ");
+                String jenisProduksi = input.nextLine();
+
+                
+                if (!jenisProduksi.equalsIgnoreCase("Susu") && !jenisProduksi.equalsIgnoreCase("Telur" ) && !jenisProduksi.equalsIgnoreCase("Daging")) {
+                    System.out.println("Jenis produksi tidak valid.");
+                } else {
+                    System.out.print("Masukkan jumlah produksi: ");
+                    int jumlahProduksi = input.nextInt();
+                    input.nextLine();
+                    
+                   
+                    Produksi produksi = new Produksi(jenisProduksi, jumlahProduksi);
+                    laporanProduksi.tambahHasilProduksi(produksi);
+                    
+                   
+                    System.out.print("Masukkan alamat pembeli: ");
+                    String alamat = input.nextLine();
+                    laporanProduksi.tambahAlamatPembeli(alamat);
+                    System.out.println();
+                    
+
+                    System.out.print("\n");
+                    laporanProduksi.tampilkanLaporan();
+                }
+            } else {
+                System.out.println("Hewan dengan nama \"" + namaHewan + "\" tidak ditemukan.");
+            }
+        }
+           
             if (pilihan == 9) {
                 int jumlahPakan;
                 System.out.println("\n====Beri Makan Hewan====");

@@ -31,8 +31,9 @@ public class Sapi extends Hewan {
         for (Hewan hewan : dataHewan) {
             System.out.println(
                     "Nama Hewan: " + hewan.getNamaHewan() + "\nJenis Hewan: " + hewan.getJenisHewan() + "\nUmur Hewan: "
-                            + hewan.getUmurHewan() + " Tahun\n");
+                            + hewan.getUmurHewan() + " Tahun\n" + "Status Kesehatan: " + hewan.getStatusKesehatan());
         }
     }
+
 
 }
