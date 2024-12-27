@@ -1,38 +1,38 @@
 import java.util.ArrayList;
-import java.util.List;
+import javax.swing.*;
+import java.awt.*;
 
-public class LaporanProduksi implements Pengiriman {
-    private List<Produksi> laporanProduksi;
-    private String alamatPembeli;
-
-    public LaporanProduksi() {
-        laporanProduksi = new ArrayList<>();
-    }
-
-    @Override
-    public void tambahAlamatPembeli(String alamat) {
-        this.alamatPembeli = alamat;
-    }
+public class LaporanProduksi {
+    private ArrayList<Produksi> hasilProduksi = new ArrayList<>();
+    private ArrayList<String> alamatPembeli = new ArrayList<>();
 
     public void tambahHasilProduksi(Produksi produksi) {
-        laporanProduksi.add(produksi);
-        System.out.println(
-                "Hasil Produksi telah ditambahkan: " + produksi.getJenisHasil() + ", Jumlah: " + produksi.getJumlah());
+        hasilProduksi.add(produksi);
+    }
+
+    public void tambahAlamatPembeli(String alamat) {
+        alamatPembeli.add(alamat);
     }
 
     public void tampilkanLaporan() {
-        if (laporanProduksi.isEmpty()) {
-            System.out.println("Tidak ada laporan hasil produksi.");
+        JFrame laporanFrame = new JFrame("Laporan Produksi");
+        laporanFrame.setSize(300, 300);
+        laporanFrame.setLayout(new GridLayout(hasilProduksi.size(), 1));
+        laporanFrame.setLocationRelativeTo(null); // Center the frame
+
+        if (hasilProduksi.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Tidak ada hasil produksi");
         } else {
-            System.out.println("Laporan Hasil Produksi:");
-            for (Produksi p : laporanProduksi) {
-                p.catatHasilProduksi();
-            }
-            if (alamatPembeli != null) {
-                System.out.println("Alamat Pembeli: " + alamatPembeli + "\n");
-            } else {
-                System.out.println("Alamat Pembeli belum diatur.");
+            for (int i = 0; i < hasilProduksi.size(); i++) {
+                Produksi produksi = hasilProduksi.get(i);
+                String alamat = alamatPembeli.get(i);
+                JLabel lblProduksi = new JLabel("<html>Jenis Produksi: " + produksi.getJenisProduksi() +
+                        "<br>Jumlah Produksi: " + produksi.getJumlahProduksi() +
+                        "<br>Alamat Pembeli: " + alamat + "<br><br></html>");
+                laporanFrame.add(lblProduksi);
             }
         }
+
+        laporanFrame.setVisible(true);
     }
 }

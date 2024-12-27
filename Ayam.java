@@ -1,4 +1,13 @@
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class Ayam extends Hewan {
     Scanner input = new Scanner(System.in);
@@ -8,106 +17,180 @@ public class Ayam extends Hewan {
     }
 
     public void tambahDataHewan() {
-        System.out.print("Masukkan nama hewan: ");
-        String namaHewan = input.nextLine();
-        System.out.print("Masukkan jenis hewan: ");
-        String jenisHewan = input.nextLine();
-        System.out.print("Masukkan status kesehatan hewan: ");
-        String statusKesehatan = input.nextLine();
-        System.out.print("Masukkan umur hewan: ");
-        int umurHewan = input.nextInt();
-        input.nextLine();
-        System.out.print("\n");
+        JFrame tambahDataFrame = new JFrame("Tambah Data Ayam");
+        tambahDataFrame.setSize(300, 300);
+        tambahDataFrame.setLayout(new GridLayout(5, 2));
+        tambahDataFrame.setLocationRelativeTo(null); // Center the frame
 
-        dataHewan.add(new Ayam(namaHewan, jenisHewan, statusKesehatan, umurHewan));
+        JLabel lblNama = new JLabel("Nama Hewan:");
+        JTextField txtNama = new JTextField();
+        JLabel lblJenis = new JLabel("Jenis Hewan:");
+        JTextField txtJenis = new JTextField();
+        JLabel lblStatus = new JLabel("Status Kesehatan:");
+        JTextField txtStatus = new JTextField();
+        JLabel lblUmur = new JLabel("Umur Hewan:");
+        JTextField txtUmur = new JTextField();
+        JButton btnSubmit = new JButton("Submit");
+
+        tambahDataFrame.add(lblNama);
+        tambahDataFrame.add(txtNama);
+        tambahDataFrame.add(lblJenis);
+        tambahDataFrame.add(txtJenis);
+        tambahDataFrame.add(lblStatus);
+        tambahDataFrame.add(txtStatus);
+        tambahDataFrame.add(lblUmur);
+        tambahDataFrame.add(txtUmur);
+        tambahDataFrame.add(btnSubmit);
+
+        btnSubmit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String namaHewan = txtNama.getText();
+                String jenisHewan = txtJenis.getText();
+                String statusKesehatan = txtStatus.getText();
+                int umurHewan = Integer.parseInt(txtUmur.getText());
+
+                dataHewan.add(new Ayam(namaHewan, jenisHewan, statusKesehatan, umurHewan));
+                tambahDataFrame.dispose();
+            }
+        });
+
+        tambahDataFrame.setVisible(true);
     }
 
     public void ubahDataHewan() {
-        System.out.print("Masukkan nama hewan yang ingin diubah: ");
-        String namaHewan = input.nextLine();
-        System.out.print("Masukkan status kesehatan baru: ");
-        String statusKesehatan = input.nextLine();
-        System.out.print("Masukkan umur hewan baru: ");
-        int umurHewan = input.nextInt();
-        input.nextLine();
-        System.out.print("\n");
+        JFrame ubahDataFrame = new JFrame("Ubah Data Ayam");
+        ubahDataFrame.setSize(300, 300);
+        ubahDataFrame.setLayout(new GridLayout(4, 2));
+        ubahDataFrame.setLocationRelativeTo(null); // Center the frame
 
-        for (Hewan hewan : dataHewan) {
-            if (hewan.getNamaHewan().equalsIgnoreCase(namaHewan)) {
-                hewan.setUmurHewan(umurHewan);
-                hewan.setStatusKesehatan(statusKesehatan);
-                System.out.println("Status kesehatan hewan berhasil diubah.");
-                return;
+        JLabel lblNama = new JLabel("Nama Hewan:");
+        JTextField txtNama = new JTextField();
+        JLabel lblStatus = new JLabel("Status Kesehatan Baru:");
+        JTextField txtStatus = new JTextField();
+        JLabel lblUmur = new JLabel("Umur Hewan Baru:");
+        JTextField txtUmur = new JTextField();
+        JButton btnSubmit = new JButton("Submit");
+
+        ubahDataFrame.add(lblNama);
+        ubahDataFrame.add(txtNama);
+        ubahDataFrame.add(lblStatus);
+        ubahDataFrame.add(txtStatus);
+        ubahDataFrame.add(lblUmur);
+        ubahDataFrame.add(txtUmur);
+        ubahDataFrame.add(btnSubmit);
+
+        btnSubmit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String namaHewan = txtNama.getText();
+                String statusKesehatan = txtStatus.getText();
+                int umurHewan = Integer.parseInt(txtUmur.getText());
+
+                boolean isFound = false;
+                for (Hewan hewan : dataHewan) {
+                    if (hewan.getNamaHewan().equalsIgnoreCase(namaHewan)) {
+                        isFound = true;
+                        hewan.setUmurHewan(umurHewan);
+                        hewan.setStatusKesehatan(statusKesehatan);
+                        JOptionPane.showMessageDialog(null, "Status kesehatan hewan berhasil diubah.");
+                        ubahDataFrame.dispose();
+                        return;
+                    }
+                }
+
+                if (!isFound) {
+                    JOptionPane.showMessageDialog(null, "Hewan tidak ditemukan.");
+                }
             }
-        }
+        });
 
-        System.out.println("Hewan tidak ditemukan.");
+        ubahDataFrame.setVisible(true);
     }
 
     public void beriMakan(int jumlahMakanan) {
-        System.out.println("Ayam diberi makan " + jumlahMakanan + " kg pakan\n");
+        JFrame beriMakanFrame = new JFrame("Beri Makan Ayam");
+        beriMakanFrame.setSize(300, 200);
+        beriMakanFrame.setLayout(new GridLayout(2, 1));
+        beriMakanFrame.setLocationRelativeTo(null); // Center the frame
 
+        JLabel lblJumlah = new JLabel("Jumlah Makanan (kg): " + jumlahMakanan);
+        JButton btnSubmit = new JButton("OK");
+
+        beriMakanFrame.add(lblJumlah);
+        beriMakanFrame.add(btnSubmit);
+
+        btnSubmit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Ayam diberi makan " + jumlahMakanan + " kg pakan");
+                beriMakanFrame.dispose();
+            }
+        });
+
+        beriMakanFrame.setVisible(true);
     }
 
-    public void dataHewan() {
+    public String dataHewan() {
+        StringBuilder data = new StringBuilder();
         for (Hewan hewan : dataHewan) {
-            System.out.println(
-                    "Nama Hewan: " + hewan.getNamaHewan() + "\nJenis Hewan: " + hewan.getJenisHewan() + "\nUmur Hewan: "
-                            + hewan.getUmurHewan() + " Tahun\n" + "Status Kesehatan: " + hewan.getStatusKesehatan()
-                            + "\n");
+            data.append("Nama Hewan: ").append(hewan.getNamaHewan())
+                    .append("\nJenis Hewan: ").append(hewan.getJenisHewan())
+                    .append("\nUmur Hewan: ").append(hewan.getUmurHewan()).append(" Tahun")
+                    .append("\nStatus Kesehatan: ").append(hewan.getStatusKesehatan()).append("\n\n");
         }
+        return data.toString();
     }
 
     public void produksiAyam(LaporanProduksi laporanProduksi) {
-        System.out.print("Masukkan nama ayam: ");
-        String namaHewan = input.nextLine();
+        JFrame produksiFrame = new JFrame("Produksi Ayam");
+        produksiFrame.setSize(300, 300);
+        produksiFrame.setLayout(new GridLayout(5, 2));
+        produksiFrame.setLocationRelativeTo(null); // Center the frame
 
-        boolean isFound = false;
-        for (Hewan hewan : dataHewan) {
-            if (hewan.getNamaHewan().equalsIgnoreCase(namaHewan)) {
-                isFound = true;
-                System.out.print("Masukkan Jenis Produksi (Telur/Daging): ");
-                String jenisProduksi = input.nextLine();
+        JLabel lblNama = new JLabel("Nama Ayam:");
+        JTextField txtNama = new JTextField();
+        JLabel lblJenis = new JLabel("Jenis Produksi (Telur/Daging):");
+        JTextField txtJenis = new JTextField();
+        JLabel lblJumlah = new JLabel("Jumlah Produksi:");
+        JTextField txtJumlah = new JTextField();
+        JLabel lblAlamat = new JLabel("Alamat Pembeli:");
+        JTextField txtAlamat = new JTextField();
+        JButton btnSubmit = new JButton("Submit");
 
-                if (jenisProduksi.equalsIgnoreCase("telur")) {
-                    System.out.print("Masukkan jumlah produksi telur: ");
-                    int jumlahProduksi = input.nextInt();
-                    input.nextLine();
+        produksiFrame.add(lblNama);
+        produksiFrame.add(txtNama);
+        produksiFrame.add(lblJenis);
+        produksiFrame.add(txtJenis);
+        produksiFrame.add(lblJumlah);
+        produksiFrame.add(txtJumlah);
+        produksiFrame.add(lblAlamat);
+        produksiFrame.add(txtAlamat);
+        produksiFrame.add(btnSubmit);
 
-                    Produksi produksi = new Produksi(jenisProduksi, jumlahProduksi);
-                    laporanProduksi.tambahHasilProduksi(produksi);
+        btnSubmit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String namaHewan = txtNama.getText();
+                String jenisProduksi = txtJenis.getText();
+                int jumlahProduksi = Integer.parseInt(txtJumlah.getText());
+                String alamat = txtAlamat.getText();
 
-                    System.out.print("Masukkan alamat pembeli: ");
-                    String alamat = input.nextLine();
-                    laporanProduksi.tambahAlamatPembeli(alamat);
+                boolean isFound = false;
+                for (Hewan hewan : dataHewan) {
+                    if (hewan.getNamaHewan().equalsIgnoreCase(namaHewan)) {
+                        isFound = true;
+                        Produksi produksi = new Produksi(jenisProduksi, jumlahProduksi);
+                        laporanProduksi.tambahHasilProduksi(produksi);
+                        laporanProduksi.tambahAlamatPembeli(alamat);
+                        laporanProduksi.tampilkanLaporan();
+                        produksiFrame.dispose();
+                        return;
+                    }
+                }
 
-                    System.out.print("\n");
-
-                    laporanProduksi.tampilkanLaporan();
-
-                } else if (jenisProduksi.equalsIgnoreCase("daging")) {
-                    System.out.print("Masukkan jumlah produksi daging: ");
-                    int jumlahProduksi = input.nextInt();
-                    input.nextLine();
-
-                    Produksi produksi = new Produksi(jenisProduksi, jumlahProduksi);
-                    laporanProduksi.tambahHasilProduksi(produksi);
-
-                    System.out.print("Masukkan alamat pembeli: ");
-                    String alamat = input.nextLine();
-                    laporanProduksi.tambahAlamatPembeli(alamat);
-
-                    System.out.print("\n");
-
-                    laporanProduksi.tampilkanLaporan();
-                } else {
-                    System.out.println("Jenis produksi tidak ditemukan.");
+                if (!isFound) {
+                    JOptionPane.showMessageDialog(null, "Nama hewan tersebut tidak ditemukan.");
                 }
             }
-        }
+        });
 
-        if (!isFound) {
-            System.out.println("Nama hewan tersebut tidak ditemukan. \n");
-        }
+        produksiFrame.setVisible(true);
     }
 }

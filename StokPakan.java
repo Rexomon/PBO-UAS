@@ -1,8 +1,17 @@
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class StokPakan implements Manajemen {
     Scanner input = new Scanner(System.in);
@@ -20,31 +29,106 @@ public class StokPakan implements Manajemen {
 
     @Override
     public void hapusData() {
-
+        // Implementasi hapus data
     }
 
     @Override
     public void perbaruiData() {
-        System.out.println("data berhasil di perbarui");
+        JFrame perbaruiDataFrame = new JFrame("Perbarui Data Stok Pakan");
+        perbaruiDataFrame.setSize(300, 300);
+        perbaruiDataFrame.setLayout(new GridLayout(4, 2));
+        perbaruiDataFrame.setLocationRelativeTo(null); // Center the frame
+
+        JLabel lblJenis = new JLabel("Jenis Pakan:");
+        JTextField txtJenis = new JTextField();
+        JLabel lblJumlah = new JLabel("Jumlah Pakan:");
+        JTextField txtJumlah = new JTextField();
+        JLabel lblTanggal = new JLabel("Tanggal Kadaluarsa (dd-MM-yyyy):");
+        JTextField txtTanggal = new JTextField();
+        JButton btnSubmit = new JButton("Submit");
+
+        perbaruiDataFrame.add(lblJenis);
+        perbaruiDataFrame.add(txtJenis);
+        perbaruiDataFrame.add(lblJumlah);
+        perbaruiDataFrame.add(txtJumlah);
+        perbaruiDataFrame.add(lblTanggal);
+        perbaruiDataFrame.add(txtTanggal);
+        perbaruiDataFrame.add(btnSubmit);
+
+        btnSubmit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String jenis = txtJenis.getText();
+                int jumlah = Integer.parseInt(txtJumlah.getText());
+                String tanggal = txtTanggal.getText();
+                Date tanggalKadaluarsa = null;
+                try {
+                    tanggalKadaluarsa = new SimpleDateFormat("dd-MM-yyyy").parse(tanggal);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+
+                boolean isFound = false;
+                for (StokPakan stok : stokPakan) {
+                    if (stok.getJenisPakan().equalsIgnoreCase(jenis)) {
+                        isFound = true;
+                        stok.setJumlahPakan(jumlah);
+                        stok.setTanggalKadaluarsa(tanggalKadaluarsa);
+                        JOptionPane.showMessageDialog(null, "Data stok pakan berhasil diperbarui.");
+                        perbaruiDataFrame.dispose();
+                        return;
+                    }
+                }
+
+                if (!isFound) {
+                    JOptionPane.showMessageDialog(null, "Stok pakan tidak ditemukan.");
+                }
+            }
+        });
+
+        perbaruiDataFrame.setVisible(true);
     }
 
     @Override
     public void tambahData() {
-        System.out.print("Masukkan jenis pakan : ");
-        JenisPakan = input.nextLine();
-        System.out.print("Masukkan jumlah pakan : ");
-        JumlahPakan = input.nextInt();
-        input.nextLine();
-        System.out.print("Masukkan tanggal kadaluarsa (dd-MM-yyyy) : ");
-        String tanggal = input.nextLine();
-        try {
-            TanggalKadaluarsa = new SimpleDateFormat("dd-MM-yyyy").parse(tanggal);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.print("\n");
+        JFrame tambahDataFrame = new JFrame("Tambah Data Stok Pakan");
+        tambahDataFrame.setSize(300, 300);
+        tambahDataFrame.setLayout(new GridLayout(4, 2));
+        tambahDataFrame.setLocationRelativeTo(null); // Center the frame
 
-        stokPakan.add(new StokPakan(JenisPakan, JumlahPakan, TanggalKadaluarsa));
+        JLabel lblJenis = new JLabel("Jenis Pakan(Pakan Sapi/Pakan Ayam/Pakan Kambing):");
+        JTextField txtJenis = new JTextField();
+        JLabel lblJumlah = new JLabel("Jumlah Pakan:");
+        JTextField txtJumlah = new JTextField();
+        JLabel lblTanggal = new JLabel("Tanggal Kadaluarsa (dd-MM-yyyy):");
+        JTextField txtTanggal = new JTextField();
+        JButton btnSubmit = new JButton("Submit");
+
+        tambahDataFrame.add(lblJenis);
+        tambahDataFrame.add(txtJenis);
+        tambahDataFrame.add(lblJumlah);
+        tambahDataFrame.add(txtJumlah);
+        tambahDataFrame.add(lblTanggal);
+        tambahDataFrame.add(txtTanggal);
+        tambahDataFrame.add(btnSubmit);
+
+        btnSubmit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String jenis = txtJenis.getText();
+                int jumlah = Integer.parseInt(txtJumlah.getText());
+                String tanggal = txtTanggal.getText();
+                Date tanggalKadaluarsa = null;
+                try {
+                    tanggalKadaluarsa = new SimpleDateFormat("dd-MM-yyyy").parse(tanggal);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+
+                stokPakan.add(new StokPakan(jenis, jumlah, tanggalKadaluarsa));
+                tambahDataFrame.dispose();
+            }
+        });
+
+        tambahDataFrame.setVisible(true);
     }
 
     public boolean kurangiPakan(int jumlah) {
@@ -57,15 +141,24 @@ public class StokPakan implements Manajemen {
     }
 
     public void laporanStokPakan() {
+        JFrame laporanFrame = new JFrame("Laporan Stok Pakan");
+        laporanFrame.setSize(300, 300);
+        laporanFrame.setLayout(new GridLayout(stokPakan.size(), 1));
+        laporanFrame.setLocationRelativeTo(null); // Center the frame
+
         if (stokPakan.isEmpty()) {
-            System.out.println("Stok pakan kosong\n");
+            JOptionPane.showMessageDialog(null, "Stok pakan kosong");
+        } else {
+            for (StokPakan stok : stokPakan) {
+                JLabel lblStok = new JLabel("<html>Jenis Pakan: " + stok.getJenisPakan() +
+                        "<br>Jumlah Pakan: " + stok.getJumlahPakan() +
+                        "<br>Tanggal Kadaluarsa: "
+                        + new SimpleDateFormat("dd-MM-yyyy").format(stok.getTanggalKadaluasa()) + "<br><br></html>");
+                laporanFrame.add(lblStok);
+            }
         }
 
-        for (StokPakan stok : stokPakan) {
-            System.out.println("Jenis Pakan : " + stok.getJenisPakan());
-            System.out.println("Jumlah Pakan : " + stok.getJumlahPakan());
-            System.out.println("Tanggal Kadaluarsa : " + stok.getTanggalKadaluasa() + "\n");
-        }
+        laporanFrame.setVisible(true);
     }
 
     public String getJenisPakan() {
@@ -76,8 +169,15 @@ public class StokPakan implements Manajemen {
         return JumlahPakan;
     }
 
+    public void setJumlahPakan(int jumlahPakan) {
+        this.JumlahPakan = jumlahPakan;
+    }
+
     public Date getTanggalKadaluasa() {
         return TanggalKadaluarsa;
     }
 
+    public void setTanggalKadaluarsa(Date tanggalKadaluarsa) {
+        this.TanggalKadaluarsa = tanggalKadaluarsa;
+    }
 }

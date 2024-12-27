@@ -1,198 +1,322 @@
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        Pekerja pekerja = new Pekerja(1, "nama", "tugas", "kontak");
+        Pekerja pekerja = new Pekerja("P1", "nama", "tugas", "kontak");
         StokPakan stokPakan = new StokPakan("JenisPakan", 10, new java.util.Date());
         Sapi sapi = new Sapi("Syapi", "Sapi Perah", "Sehat", 2);
         Ayam ayam = new Ayam("Ayam", "Ayam Kampung", "Sehat", 1);
         Kambing kambing = new Kambing("Kambing", "Kambing Etawa", "Sehat", 3);
         LaporanProduksi laporanProduksi = new LaporanProduksi();
 
-        int pilihan;
+        JFrame frame = new JFrame("Aplikasi Manajemen Hewan");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 400);
+        frame.setLayout(new GridLayout(10, 1));
+        frame.setLocationRelativeTo(null);
 
-        do {
-            System.out.println("Selamat datang di Aplikasi Manajemen Hewan");
-            System.out.println("1. Tambah Hewan");
-            System.out.println("2. Data Hewan");
-            System.out.println("3. Ubah Data Hewan");
-            System.out.println("4. Tambah Pekerja");
-            System.out.println("5. Tambah Stok Pakan");
-            System.out.println("6. Data Pakan");
-            System.out.println("7. Laporan Harian Pekerja");
-            System.out.println("8. Laporan Produksi");
-            System.out.println("9. Beri Makan Hewan");
-            System.out.println("10.Keluar");
-            System.out.print("Masukkan pilihan anda : ");
+        JButton btnTambahHewan = new JButton("Tambah Hewan");
+        JButton btnDataHewan = new JButton("Data Hewan");
+        JButton btnUbahDataHewan = new JButton("Ubah Data Hewan");
+        JButton btnTambahPekerja = new JButton("Tambah Pekerja");
+        JButton btnTambahStokPakan = new JButton("Tambah Stok Pakan");
+        JButton btnDataPakan = new JButton("Data Pakan");
+        JButton btnLaporanPekerja = new JButton("Laporan Harian Pekerja");
+        JButton btnLaporanProduksi = new JButton("Laporan Produksi");
+        JButton btnBeriMakanHewan = new JButton("Beri Makan Hewan");
+        JButton btnKeluar = new JButton("Keluar");
 
-            pilihan = input.nextInt();
-            input.nextLine();
+        frame.add(btnTambahHewan);
+        frame.add(btnDataHewan);
+        frame.add(btnUbahDataHewan);
+        frame.add(btnTambahPekerja);
+        frame.add(btnTambahStokPakan);
+        frame.add(btnDataPakan);
+        frame.add(btnLaporanPekerja);
+        frame.add(btnLaporanProduksi);
+        frame.add(btnBeriMakanHewan);
+        frame.add(btnKeluar);
 
-            if (pilihan == 1) {
-                System.out.println("\n====Tambah Hewan====");
+        btnTambahHewan.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame tambahHewanFrame = new JFrame("Tambah Hewan");
+                tambahHewanFrame.setSize(300, 200);
+                tambahHewanFrame.setLayout(new GridLayout(4, 1));
+                tambahHewanFrame.setLocationRelativeTo(null);
 
-                System.out.println("1. Sapi");
-                System.out.println("2. Ayam");
-                System.out.println("3. Kambing");
-                System.out.print("Masukkan pilihan anda (Sapi/Ayam/Kambing): ");
-                String pilihanHewan = input.nextLine();
+                JButton btnSapi = new JButton("Sapi");
+                JButton btnAyam = new JButton("Ayam");
+                JButton btnKambing = new JButton("Kambing");
 
-                if (pilihanHewan.equalsIgnoreCase("Sapi")) {
-                    sapi.tambahDataHewan();
-                } else if (pilihanHewan.equalsIgnoreCase("Ayam")) {
-                    ayam.tambahDataHewan();
-                } else if (pilihanHewan.equalsIgnoreCase("Kambing")) {
-                    kambing.tambahDataHewan();
-                } else {
-                    System.out.println("Pilihan tidak tersedia \n");
-                }
+                tambahHewanFrame.add(btnSapi);
+                tambahHewanFrame.add(btnAyam);
+                tambahHewanFrame.add(btnKambing);
+
+                btnSapi.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        sapi.tambahDataHewan();
+                    }
+                });
+
+                btnAyam.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        ayam.tambahDataHewan();
+                    }
+                });
+
+                btnKambing.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        kambing.tambahDataHewan();
+                    }
+                });
+
+                tambahHewanFrame.setVisible(true);
             }
-            if (pilihan == 2) {
-                System.out.println("\n====Data Hewan====");
-                sapi.dataHewan();
-                ayam.dataHewan();
-                kambing.dataHewan();
+        });
+
+        btnDataHewan.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame dataHewanFrame = new JFrame("Data Hewan");
+                dataHewanFrame.setSize(300, 200);
+                dataHewanFrame.setLayout(new GridLayout(3, 1));
+                dataHewanFrame.setLocationRelativeTo(null);
+
+                String dataSapi = sapi.dataHewan();
+                JLabel sapiLabel = new JLabel("<html>Sapi:<br>" + dataSapi.replace("\n", "<br>") + "</html>");
+
+                String dataAyam = ayam.dataHewan();
+                JLabel ayamLabel = new JLabel("<html>Ayam:<br>" + dataAyam.replace("\n", "<br>") + "</html>");
+
+                String dataKambing = kambing.dataHewan();
+                JLabel kambingLabel = new JLabel("<html>Kambing:<br>" + dataKambing.replace("\n", "<br>") + "</html>");
+
+                dataHewanFrame.add(sapiLabel);
+                dataHewanFrame.add(ayamLabel);
+                dataHewanFrame.add(kambingLabel);
+
+                dataHewanFrame.setVisible(true);
             }
+        });
 
-            if (pilihan == 3) {
-                System.out.println("\n==== Ubah Data Hewan ====");
-                System.out.println("1. Sapi");
-                System.out.println("2. Ayam");
-                System.out.println("3. Kambing");
-                System.out.print("Masukkan pilihan anda (Sapi/Ayam/Kambing): ");
-                String pilihanHewan = input.nextLine();
+        btnUbahDataHewan.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame ubahDataHewanFrame = new JFrame("Ubah Data Hewan");
+                ubahDataHewanFrame.setSize(300, 200);
+                ubahDataHewanFrame.setLayout(new GridLayout(4, 1));
+                ubahDataHewanFrame.setLocationRelativeTo(null);
 
-                if (pilihanHewan.equalsIgnoreCase("Sapi")) {
-                    sapi.ubahDataHewan();
-                } else if (pilihanHewan.equalsIgnoreCase("Ayam")) {
-                    ayam.ubahDataHewan();
-                } else if (pilihanHewan.equalsIgnoreCase("Kambing")) {
-                    kambing.ubahDataHewan();
-                } else {
-                    System.out.println("Pilihan tidak tersedia \n");
-                }
+                JButton btnSapi = new JButton("Sapi");
+                JButton btnAyam = new JButton("Ayam");
+                JButton btnKambing = new JButton("Kambing");
 
+                ubahDataHewanFrame.add(btnSapi);
+                ubahDataHewanFrame.add(btnAyam);
+                ubahDataHewanFrame.add(btnKambing);
+
+                btnSapi.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        sapi.ubahDataHewan();
+                    }
+                });
+
+                btnAyam.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        ayam.ubahDataHewan();
+                    }
+                });
+
+                btnKambing.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        kambing.ubahDataHewan();
+                    }
+                });
+
+                ubahDataHewanFrame.setVisible(true);
             }
+        });
 
-            if (pilihan == 4) {
-                System.out.println("\n====Tambah Pekerja====");
+        btnTambahPekerja.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
                 pekerja.tambahData();
-            }
 
-            if (pilihan == 5) {
-                System.out.println("\n====Tambah Stok Pakan====");
+            }
+        });
+
+        btnTambahStokPakan.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 stokPakan.tambahData();
             }
+        });
 
-            if (pilihan == 6) {
-                System.out.println("\n====Data Pakan====");
+        btnDataPakan.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 stokPakan.laporanStokPakan();
             }
+        });
 
-            if (pilihan == 7) {
-                System.out.println("\n====Laporan Pekerja====");
+        btnLaporanPekerja.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 pekerja.laporanTugasHarian();
             }
+        });
 
-            if (pilihan == 8) {
-                System.out.println("\n====Laporan Produksi====");
+        btnLaporanProduksi.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame laporanProduksiFrame = new JFrame("Laporan Produksi");
+                laporanProduksiFrame.setSize(300, 200);
+                laporanProduksiFrame.setLayout(new GridLayout(4, 1));
+                laporanProduksiFrame.setLocationRelativeTo(null);
 
-                System.out.println("1. Sapi");
-                System.out.println("2. Ayam");
-                System.out.println("3. Kambing");
-                System.out.print("Masukkan pilihan anda (Sapi/Ayam/Kambing): ");
-                String pilihanHewan = input.nextLine();
+                JButton btnSapi = new JButton("Sapi");
+                JButton btnAyam = new JButton("Ayam");
+                JButton btnKambing = new JButton("Kambing");
 
-                if (pilihanHewan.equalsIgnoreCase("Sapi")) {
-                    sapi.produksiSapi(laporanProduksi);
-                } else if (pilihanHewan.equalsIgnoreCase("Ayam")) {
-                    ayam.produksiAyam(laporanProduksi);
-                } else if (pilihanHewan.equalsIgnoreCase("Kambing")) {
-                    kambing.produksiKambing(laporanProduksi);
-                } else {
-                    System.out.println("Pilihan tidak tersedia \n");
-                }
+                laporanProduksiFrame.add(btnSapi);
+                laporanProduksiFrame.add(btnAyam);
+                laporanProduksiFrame.add(btnKambing);
 
+                btnSapi.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        sapi.produksiSapi(laporanProduksi);
+                    }
+                });
+
+                btnAyam.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        ayam.produksiAyam(laporanProduksi);
+                    }
+                });
+
+                btnKambing.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        kambing.produksiKambing(laporanProduksi);
+                    }
+                });
+
+                laporanProduksiFrame.setVisible(true);
             }
+        });
 
-            if (pilihan == 9) {
-                int jumlahPakan;
-                System.out.println("\n====Beri Makan Hewan====");
+        btnBeriMakanHewan.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame beriMakanHewanFrame = new JFrame("Beri Makan Hewan");
+                beriMakanHewanFrame.setSize(300, 200);
+                beriMakanHewanFrame.setLayout(new GridLayout(4, 1));
+                beriMakanHewanFrame.setLocationRelativeTo(null); // Center the frame
 
-                System.out.println("1. Sapi");
-                System.out.println("2. Ayam");
-                System.out.println("3. Kambing");
-                System.out.print("Masukkan pilihan anda (Sapi/Ayam/Kambing): ");
-                String pilMakan = input.nextLine();
+                JButton btnSapi = new JButton("Sapi");
+                JButton btnAyam = new JButton("Ayam");
+                JButton btnKambing = new JButton("Kambing");
 
-                if (pilMakan.equalsIgnoreCase("Sapi")) {
-                    System.out.print("Masukkan jumlah pakan yang diberikan : ");
-                    jumlahPakan = input.nextInt();
-                    input.nextLine();
+                beriMakanHewanFrame.add(btnSapi);
+                beriMakanHewanFrame.add(btnAyam);
+                beriMakanHewanFrame.add(btnKambing);
 
-                    boolean pakanDitemukan = false;
-                    for (StokPakan stok : stokPakan.stokPakan) {
-                        if (stok.getJenisPakan().equalsIgnoreCase("Pakan Sapi")) {
-                            pakanDitemukan = true;
-                            if (stok.getJumlahPakan() < jumlahPakan) {
-                                System.out.println("Stok pakan tidak cukup \n");
-                            } else {
-                                stok.kurangiPakan(jumlahPakan);
-                                sapi.beriMakan(jumlahPakan);
+                btnSapi.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String jumlahPakanStr = JOptionPane.showInputDialog("Masukkan jumlah pakan yang diberikan:");
+                        try {
+                            int jumlahPakan = Integer.parseInt(jumlahPakanStr);
+
+                            boolean pakanDitemukan = false;
+                            for (StokPakan stok : stokPakan.stokPakan) {
+                                if (stok.getJenisPakan().equalsIgnoreCase("Pakan Sapi")) {
+                                    pakanDitemukan = true;
+                                    if (stok.getJumlahPakan() < jumlahPakan) {
+                                        JOptionPane.showMessageDialog(null, "Stok pakan tidak cukup");
+                                    } else {
+                                        stok.kurangiPakan(jumlahPakan);
+                                        sapi.beriMakan(jumlahPakan);
+                                    }
+                                    break;
+                                }
                             }
-                            break;
+                            if (!pakanDitemukan) {
+                                JOptionPane.showMessageDialog(null, "Stok pakan tidak tersedia");
+                            }
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Masukkan jumlah pakan yang valid.");
                         }
                     }
-                    if (!pakanDitemukan) {
-                        System.out.println("Stok pakan tidak tersedia\n");
-                    }
-                } else if (pilMakan.equalsIgnoreCase("Ayam")) {
-                    System.out.print("Masukkan jumlah pakan yang diberikan : ");
-                    jumlahPakan = input.nextInt();
-                    input.nextLine();
+                });
 
-                    boolean pakanDitemukan = false;
-                    for (StokPakan stok : stokPakan.stokPakan) {
-                        if (stok.getJenisPakan().equalsIgnoreCase("Pakan Ayam")) {
-                            pakanDitemukan = true;
-                            if (stok.getJumlahPakan() < jumlahPakan) {
-                                System.out.println("Stok pakan tidak cukup \n");
-                            } else {
-                                stok.kurangiPakan(jumlahPakan);
-                                ayam.beriMakan(jumlahPakan);
+                btnAyam.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String jumlahPakanStr = JOptionPane.showInputDialog("Masukkan jumlah pakan yang diberikan:");
+                        try {
+                            int jumlahPakan = Integer.parseInt(jumlahPakanStr);
+
+                            boolean pakanDitemukan = false;
+                            for (StokPakan stok : stokPakan.stokPakan) {
+                                if (stok.getJenisPakan().equalsIgnoreCase("Pakan Ayam")) {
+                                    pakanDitemukan = true;
+                                    if (stok.getJumlahPakan() < jumlahPakan) {
+                                        JOptionPane.showMessageDialog(null, "Stok pakan tidak cukup");
+                                    } else {
+                                        stok.kurangiPakan(jumlahPakan);
+                                        ayam.beriMakan(jumlahPakan);
+                                    }
+                                    break;
+                                }
                             }
-                            break;
+                            if (!pakanDitemukan) {
+                                JOptionPane.showMessageDialog(null, "Stok pakan tidak tersedia");
+                            }
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Masukkan jumlah pakan yang valid.");
                         }
                     }
-                    if (!pakanDitemukan) {
-                        System.out.println("Stok pakan tidak tersedia\n");
-                    }
-                } else if (pilMakan.equalsIgnoreCase("Kambing")) {
-                    System.out.print("Masukkan jumlah pakan yang diberikan : ");
-                    jumlahPakan = input.nextInt();
-                    input.nextLine();
+                });
 
-                    boolean pakanDitemukan = false;
-                    for (StokPakan stok : stokPakan.stokPakan) {
-                        if (stok.getJenisPakan().equalsIgnoreCase("Pakan Kambing")) {
-                            pakanDitemukan = true;
-                            if (stok.getJumlahPakan() < jumlahPakan) {
-                                System.out.println("Stok pakan tidak cukup \n");
-                            } else {
-                                stok.kurangiPakan(jumlahPakan);
-                                kambing.beriMakan(jumlahPakan);
+                btnKambing.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String jumlahPakanStr = JOptionPane.showInputDialog("Masukkan jumlah pakan yang diberikan:");
+                        try {
+                            int jumlahPakan = Integer.parseInt(jumlahPakanStr);
+
+                            boolean pakanDitemukan = false;
+                            for (StokPakan stok : stokPakan.stokPakan) {
+                                if (stok.getJenisPakan().equalsIgnoreCase("Pakan Kambing")) {
+                                    pakanDitemukan = true;
+                                    if (stok.getJumlahPakan() < jumlahPakan) {
+                                        JOptionPane.showMessageDialog(null, "Stok pakan tidak cukup");
+                                    } else {
+                                        stok.kurangiPakan(jumlahPakan);
+                                        kambing.beriMakan(jumlahPakan);
+                                    }
+                                    break;
+                                }
                             }
-                            break;
+                            if (!pakanDitemukan) {
+                                JOptionPane.showMessageDialog(null, "Stok pakan tidak tersedia");
+                            }
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Masukkan jumlah pakan yang valid.");
                         }
                     }
-                    if (!pakanDitemukan) {
-                        System.out.println("Stok pakan tidak tersedia\n");
-                    }
-                }
+                });
+
+                beriMakanHewanFrame.setVisible(true);
             }
-        } while (pilihan != 10);
+        });
 
+        btnKeluar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+
+        frame.setVisible(true);
         input.close();
     }
 }
