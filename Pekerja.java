@@ -44,6 +44,9 @@ public class Pekerja implements Manajemen {
     }
 
     public void laporanTugasHarian() {
+        if (dataPekerja.isEmpty()) {
+            System.out.println("Data pekerja kosong\n");
+        }
         for (Pekerja pekerja : dataPekerja) {
             System.out.println("ID Pekerja : " + pekerja.getIdPekerja());
             System.out.println("Nama Pekerja : " + pekerja.getNamaPekerja());

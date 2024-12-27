@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public abstract class Hewan {
-    protected static ArrayList<Hewan> dataHewan = new ArrayList<>();
+    protected ArrayList<Hewan> dataHewan = new ArrayList<>();
     private String namaHewan, jenisHewan, statusKesehatan;
     private int umurHewan;
 
@@ -38,7 +38,7 @@ public abstract class Hewan {
 
     @Override
     public String toString() {
-        return "Nama: " + namaHewan + ", Jenis: " + jenisHewan + 
+        return "Nama: " + namaHewan + ", Jenis: " + jenisHewan +
                ", Umur: " + umurHewan + ", Status Kesehatan: " + statusKesehatan;
     }
 }

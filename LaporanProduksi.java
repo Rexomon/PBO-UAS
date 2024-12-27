@@ -12,12 +12,12 @@ public class LaporanProduksi implements Pengiriman {
     @Override
     public void tambahAlamatPembeli(String alamat) {
         this.alamatPembeli = alamat;
-        System.out.println("Alamat Pembeli: " + alamat);
     }
 
     public void tambahHasilProduksi(Produksi produksi) {
         laporanProduksi.add(produksi);
-        System.out.println("Hasil Produksi telah ditambahkan: " + produksi.getJenisHasil() + ", Jumlah: " + produksi.getJumlah());
+        System.out.println(
+                "Hasil Produksi telah ditambahkan: " + produksi.getJenisHasil() + ", Jumlah: " + produksi.getJumlah());
     }
 
     public void tampilkanLaporan() {
@@ -29,7 +29,7 @@ public class LaporanProduksi implements Pengiriman {
                 p.catatHasilProduksi();
             }
             if (alamatPembeli != null) {
-                System.out.println("Alamat Pembeli: " + alamatPembeli);
+                System.out.println("Alamat Pembeli: " + alamatPembeli + "\n");
             } else {
                 System.out.println("Alamat Pembeli belum diatur.");
             }

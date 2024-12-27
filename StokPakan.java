@@ -57,6 +57,10 @@ public class StokPakan implements Manajemen {
     }
 
     public void laporanStokPakan() {
+        if (stokPakan.isEmpty()) {
+            System.out.println("Stok pakan kosong\n");
+        }
+
         for (StokPakan stok : stokPakan) {
             System.out.println("Jenis Pakan : " + stok.getJenisPakan());
             System.out.println("Jumlah Pakan : " + stok.getJumlahPakan());
