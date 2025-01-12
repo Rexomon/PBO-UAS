@@ -12,6 +12,10 @@ import javax.swing.JTextField;
 public class Sapi extends Hewan {
     Scanner input = new Scanner(System.in);
 
+    public void beriMakan() {
+        beriMakan(1);
+    }
+
     public Sapi(String namaHewan, String jenisHewan, String statusKesehatan, int umurHewan) {
         super(namaHewan, jenisHewan, statusKesehatan, umurHewan);
     }
@@ -141,7 +145,7 @@ public class Sapi extends Hewan {
 
     public void produksiSapi(LaporanProduksi laporanProduksi) {
         JFrame produksiFrame = new JFrame("Produksi Sapi");
-        produksiFrame.setSize(300, 300);
+        produksiFrame.setSize(400, 300);
         produksiFrame.setLayout(new GridLayout(5, 2));
         produksiFrame.setLocationRelativeTo(null); // Center the frame
 

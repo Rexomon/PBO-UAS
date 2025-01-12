@@ -22,11 +22,6 @@ public class Pekerja implements Manajemen {
     }
 
     @Override
-    public void hapusData() {
-        // Implementasi hapus data
-    }
-
-    @Override
     public void perbaruiData() {
         JFrame perbaruiDataFrame = new JFrame("Perbarui Data Pekerja");
         perbaruiDataFrame.setSize(300, 300);

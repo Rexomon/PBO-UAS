@@ -28,11 +28,6 @@ public class StokPakan implements Manajemen {
     }
 
     @Override
-    public void hapusData() {
-        // Implementasi hapus data
-    }
-
-    @Override
     public void perbaruiData() {
         JFrame perbaruiDataFrame = new JFrame("Perbarui Data Stok Pakan");
         perbaruiDataFrame.setSize(300, 300);
@@ -91,7 +86,7 @@ public class StokPakan implements Manajemen {
     @Override
     public void tambahData() {
         JFrame tambahDataFrame = new JFrame("Tambah Data Stok Pakan");
-        tambahDataFrame.setSize(300, 300);
+        tambahDataFrame.setSize(650, 400);
         tambahDataFrame.setLayout(new GridLayout(4, 2));
         tambahDataFrame.setLocationRelativeTo(null); // Center the frame
 

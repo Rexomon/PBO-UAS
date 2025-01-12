@@ -86,7 +86,7 @@ public class Main {
         btnDataHewan.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFrame dataHewanFrame = new JFrame("Data Hewan");
-                dataHewanFrame.setSize(300, 200);
+                dataHewanFrame.setSize(500, 500);
                 dataHewanFrame.setLayout(new GridLayout(3, 1));
                 dataHewanFrame.setLocationRelativeTo(null);
 
