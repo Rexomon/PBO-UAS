@@ -1,6 +1,9 @@
+import java.awt.GridLayout;
 import java.util.ArrayList;
-import javax.swing.*;
-import java.awt.*;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class LaporanProduksi {
     private ArrayList<Produksi> hasilProduksi = new ArrayList<>();
@@ -35,4 +38,20 @@ public class LaporanProduksi {
 
         laporanFrame.setVisible(true);
     }
+
+    public void dataAyam() {
+        Ayam produksiAyam = new Ayam("Ayam", "Ayam", "Sehat", 1);
+        produksiAyam.produksiAyam(this);
+    }
+
+    public void dataSapi() {
+        Sapi produksiSapi = new Sapi("Sapi", "Sapi", "Sehat", 1);
+        produksiSapi.produksiSapi(this);
+    }
+
+    public void dataKambing() {
+        Kambing produksiKambing = new Kambing("Kambing", "Kambing", "Sehat", 1);
+        produksiKambing.produksiKambing(this);
+    }
+
 }
